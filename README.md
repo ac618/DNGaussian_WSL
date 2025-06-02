@@ -9,20 +9,9 @@ This is the official repository for our CVPR 2024 paper **DNGaussian: Optimizing
 
 ## Installation
 
-Tested on Ubuntu 18.04, CUDA 11.3, PyTorch 1.12.1
+Tested on WSL2, Ubuntu 24.04.1, CUDA 11.3, PyTorch 1.12.1, GCC 9.5.0
 
-``````
-conda env create --file environment.yml
-conda activate dngaussian
-
-cd submodules
-git clone git@github.com:ashawkey/diff-gaussian-rasterization.git --recursive
-git clone https://gitlab.inria.fr/bkerbl/simple-knn.git
-pip install ./diff-gaussian-rasterization ./simple-knn
-``````
-
-If encountering installation problem of the `diff-gaussian-rasterization` or `gridencoder`, you may get some help from [gaussian-splatting](https://github.com/graphdeco-inria/gaussian-splatting) and [torch-ngp](https://github.com/ashawkey/torch-ngp).
-
+See [installation_guide.md](installation_guide.md) for detailed installation instructions.
 
 ## Evaluation
 

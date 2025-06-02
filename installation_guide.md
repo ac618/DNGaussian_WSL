@@ -49,7 +49,12 @@ Before installing the submodules, you need to modify the `setup.py` files of `di
 /usr/include/linux/types.h:12:27: error: expected initializer before ‘__s128’
     12 | typedef __signed__ __int128 __s128 __attribute__((aligned(16)));
 ```
-I've done this for you in the `setup.py` files of gridencoder, but for the submodules, you need to do it manually since they are cloned from external repositories. After modifying the `setup.py` files, you can install the submodules:
+You can modify the `setup.py` files manually or use the files provided in `setups` directory of this repository by runing the following commands:
+```bash
+cp ../setups/diff-gaussian-rasterization/setup.py diff-gaussian-rasterization/
+cp ../setups/simple-knn/setup.py simple-knn/
+```
+
 ```bash
 pip install ./diff-gaussian-rasterization ./simple-knn
 ```

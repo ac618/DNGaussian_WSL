@@ -21,3 +21,9 @@ data/dtu/*
 data/llff/*
 data/nerf_synthetic/*
 !*.gitkeep
+
+# data
+SampleSet
+SampleSet.zip
+south-building
+south-building.zip

@@ -12,14 +12,13 @@ dependencies:
   - torchaudio=0.12.1
   - torchvision=0.13.1
   - tqdm
-
+  - mkl=2024.0
   - pip:
-    - ./gridencoder
-    - pillow
-    - tensorboard
-    - opencv-python
-    # - timm==0.9.10 --no-deps (this has to be ran manually since conda does not support options like --no-deps)
-    - scikit-image
-    - imageio
-    - matplotlib
-    
+      - ./gridencoder
+      - pillow
+      - tensorboard
+      - opencv-python
+      # - timm==0.9.10 --no-deps (this has to be ran manually since conda does not support options like --no-deps)
+      - scikit-image
+      - imageio
+      - matplotlib

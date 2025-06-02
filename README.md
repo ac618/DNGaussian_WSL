@@ -6,12 +6,15 @@ This is the official repository for our CVPR 2024 paper **DNGaussian: Optimizing
 
 ![image](assets/main.png)
 
-
 ## Installation
 
 Tested on WSL2, Ubuntu 24.04.1, CUDA 11.3, PyTorch 1.12.1, GCC 9.5.0
 
 See [installation_guide.md](installation_guide.md) for detailed installation instructions.
+
+## Test
+
+See [test_colmap.md](test_colmap.md)
 
 ## Evaluation
 
@@ -33,15 +36,12 @@ See [installation_guide.md](installation_guide.md) for detailed installation ins
    bash scripts/run_llff.sh data/llff/fern output/llff/fern ${gpu_id}
    ```
 
-
-
 ### DTU
 
 1. Download DTU dataset
 
    - Download the DTU dataset "Rectified (123 GB)" from the [official website](https://roboimagedata.compute.dtu.dk/?page_id=36/), and extract it.
    - Download masks (used for evaluation only) from [this link](https://drive.google.com/file/d/1Yt5T3LJ9DZDiHbtd9PDFNHqJAd7wt-_E/view?usp=sharing).
-
 
 2. Organize DTU for few-shot setting
 
@@ -54,7 +54,6 @@ See [installation_guide.md](installation_guide.md) for detailed installation ins
    - Poses: following [gaussian-splatting](https://github.com/graphdeco-inria/gaussian-splatting), run `convert.py` to get the poses and the undistorted images by COLMAP.
    - Render Path: following [LLFF](https://github.com/Fyusion/LLFF) to get the `poses_bounds.npy` from the COLMAP data. (Optional)
 
-
 4. Generate monocular depths by DPT:
 
    ```bash
@@ -62,7 +61,7 @@ See [installation_guide.md](installation_guide.md) for detailed installation ins
    python get_depth_map_for_llff_dtu.py --root_path $<dataset_path_for_dtu> --benchmark DTU
    ```
 
-5. Set the mask path and the expected output model path in `copy_mask_dtu.sh` for evaluation. (default: "data/dtu/submission_data/idrmasks" and "output/dtu") 
+5. Set the mask path and the expected output model path in `copy_mask_dtu.sh` for evaluation. (default: "data/dtu/submission_data/idrmasks" and "output/dtu")
 
 6. Start training and testing:
 
@@ -70,8 +69,6 @@ See [installation_guide.md](installation_guide.md) for detailed installation ins
    # for example
    bash scripts/run_dtu.sh data/dtu/scan8 output/dtu/scan8 ${gpu_id}
    ```
-
-
 
 ### Blender
 
@@ -92,14 +89,13 @@ See [installation_guide.md](installation_guide.md) for detailed installation ins
    bash scripts/run_blender.sh data/nerf_synthetic/drums output/blender/drums ${gpu_id}
    ```
 
-
 ## Reproducing Results
+
 Due to the randomness of the densification process and random initialization, the metrics may be unstable in some scenes, especially PSNR.
 
-
 ### Checkpoints and Results
-You can download our provided checkpoints from [here](https://drive.google.com/drive/folders/1V8XGg1MXJDb-bK3NAEo5Gw2GLLByF7FM?usp=sharing). These results are reproduced with a lower error tolerance bound to keep aligned with this repo, which is different from what we use in the paper. This could lead to higher metrics but worse visualization.
 
+You can download our provided checkpoints from [here](https://drive.google.com/drive/folders/1V8XGg1MXJDb-bK3NAEo5Gw2GLLByF7FM?usp=sharing). These results are reproduced with a lower error tolerance bound to keep aligned with this repo, which is different from what we use in the paper. This could lead to higher metrics but worse visualization.
 
 ### MVS Point Cloud Initialization
 
@@ -116,17 +112,15 @@ However, there may still be some randomness.
 
 For reference, the best results we get in two random tests are as follows:
 
-| PSNR   | LPIPS  | SSIM (SK)   |  SSIM (GS)   |
-| ------ | ------ | ----- | ----- |
-| 19.942 | 0.228  | 0.682 | 0.687 |
+| PSNR   | LPIPS | SSIM (SK) | SSIM (GS) |
+| ------ | ----- | --------- | --------- |
+| 19.942 | 0.228 | 0.682     | 0.687     |
 
 where GS refers to the calculation originally provided by 3DGS, and SK denotes calculated by sklearn which is used in most previous NeRF-based methods.
 
-
 ## Customized Dataset
+
 Similar to Gaussian Splatting, our method can read standard COLMAP format datasets. Please customize your sampling rule in `scenes/dataset_readers.py`, and see how to organize a COLMAP-format dataset from raw RGB images referring to our preprocessing of DTU.
-
-
 
 ## Citation
 

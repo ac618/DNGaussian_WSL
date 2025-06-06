@@ -90,9 +90,11 @@ if __name__ == '__main__':
     image_file = os.path.join(args.output_path, 'sparse', '0', 'images.txt')
     write_image_txt(image_file, imgs_path, w2c_matrices[0])
 
+    """
     ## Write points3D.txt
     point_file = os.path.join(args.output_path, 'sparse', '0', 'points3D.txt')
     write_point_txt(point_file, npz_path)
+    """
 
     ## Move images
     os.system("cp -r {target} {output}".format(

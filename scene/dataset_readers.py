@@ -195,7 +195,7 @@ def readColmapSceneInfo(path, images, dataset, eval, rand_pcd, mvs_pcd, llffhold
         elif dataset == "DTU":
             # train_idx = [25, 22, 28, 40, 44, 48, 0, 8, 13]
             # exclude_idx = [3, 4, 5, 6, 7, 16, 17, 18, 19, 20, 21, 36, 37, 38, 39]
-            train_idx = [0, 2]
+            train_idx = [0, 2, 3]
             exclude_idx = []
             test_idx = [i for i in np.arange(49) if i not in train_idx + exclude_idx]
             if N_sparse > 0:

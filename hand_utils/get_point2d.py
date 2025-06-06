@@ -191,8 +191,8 @@ def main():
     image_file = os.path.join(sparse_dir, 'images.txt')
     output_image_file = os.path.join(sparse_dir, 'new_images.txt')
     output_point_file = os.path.join(sparse_dir, 'points3D.txt')
-    plot_dir = os.path.join(data_dir, 'visualizations')
-    os.makedirs(plot_dir, exist_ok=True)
+    # plot_dir = os.path.join(data_dir, 'visualizations')
+    # os.makedirs(plot_dir, exist_ok=True)
 
     intrinsics_dict = parse_cameras_txt(camera_file)
     cameras, image_lines = parse_images_txt(image_file)
@@ -226,24 +226,25 @@ def main():
         depth = cam_depths[cam_id - 1][1] - depth * (cam_depths[cam_id - 1][1] - cam_depths[cam_id - 1][0]) / 255.0
 
         # Save visualizations
-        save_image_points_original(rgb, os.path.join(plot_dir, f"{base_name}_orig_color.png"))
-        save_image_points_masked(rgb, img_mask, os.path.join(plot_dir, f"{base_name}_masked_color.png"))
-        visualize_depth_map(depth, img_mask, depth_thresh=cam_depths[cam_id - 1][1] / 2,
-                            save_path=os.path.join(plot_dir, f"{base_name}_depth_masked.png"))
+        # save_image_points_original(rgb, os.path.join(plot_dir, f"{base_name}_orig_color.png"))
+        # save_image_points_masked(rgb, img_mask, os.path.join(plot_dir, f"{base_name}_masked_color.png"))
+        # visualize_depth_map(depth, img_mask, depth_thresh=cam_depths[cam_id - 1][1] / 2,
+        #                     save_path=os.path.join(plot_dir, f"{base_name}_depth_masked.png"))
 
         points_cam, valid_mask = backproject(depth, intr, img_mask, depth_thresh=45, scale=1.0)
         rgb_flat = rgb.reshape(-1, 3)
         valid_colors = rgb_flat[valid_mask]
-        visualize_point_cloud(points_cam, sample_rate=200, colors=valid_colors)
         # print(valid_colors.shape)
         # save_image_points_original(valid_colors, os.path.join(plot_dir, f"{base_name}_masked_color.png"))
         points_world = transform_points(points_cam, Rmat, t)
+        visualize_point_cloud(points_world, sample_rate=300, colors=valid_colors)
         # visualize_point_cloud(points_world, sample_rate=1, colors=valid_colors)
         
-        for i in range(0, points_world.shape[0], 200):
+        for i in range(0, points_world.shape[0], 300):
             X = points_world[i]
             color = valid_colors[i]
-            all_points.append((point_id, X, color))
+            if (cam_id != 2):
+                all_points.append((point_id, X, color))
             x_proj, y_proj, valid = project_points(np.array([X]), Rmat, t, intr)
             if valid[0]:
                 points2D_map[image_id].append((x_proj[0], y_proj[0], point_id))

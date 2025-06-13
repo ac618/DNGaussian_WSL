@@ -11,9 +11,5 @@ python train_dtu.py --dataset DTU -s $dataset --model_path $workspace -r 4 --eva
             --opacity_lr 0.05 --scaling_lr 0.003 \
             --shape_pena 0.005 --opa_pena 0.001 --scale_pena 0.005\
 
-bash ./scripts/copy_mask_dtu.sh
-
 python render.py -s $dataset --model_path $workspace -r 4
 python spiral.py -s $dataset --model_path $workspace -r 4
-
-python metrics_dtu.py --model_path $workspace 

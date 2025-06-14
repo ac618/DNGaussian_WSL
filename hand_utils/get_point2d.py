@@ -236,26 +236,32 @@ def main():
         # print(valid_colors.shape)
         # save_image_points_original(valid_colors, os.path.join(plot_dir, f"{base_name}_masked_color.png"))
         points_world = transform_points(points_cam, Rmat, t)
-        visualize_point_cloud(points_world, sample_rate=1, colors=valid_colors)
+        # visualize_point_cloud(points_world, sample_rate=1, colors=valid_colors)
         # visualize_point_cloud(points_world, sample_rate=1, colors=valid_colors)
         
-        for i in range(0, points_world.shape[0], 300):
+        for i in range(0, points_world.shape[0], 400):
             X = points_world[i]
             color = valid_colors[i]
-            if (cam_id != 2):
-                all_points.append((point_id, X, color))
+            all_points.append((point_id, X, color))
             x_proj, y_proj, valid = project_points(np.array([X]), Rmat, t, intr)
             if valid[0]:
                 points2D_map[image_id].append((x_proj[0], y_proj[0], point_id))
             point_id += 1
 
     with open(output_point_file, 'w') as f:
-        f.write("# POINT3D_ID X Y Z R G B ERROR TRACK[]\n")
+        f.write("# 3D point list with one line of data per point:\n")
+        f.write("#   POINT3D_ID, X, Y, Z, R, G, B, ERROR, TRACK[] as (IMAGE_ID, POINT2D_IDX)\n")
+        f.write("# Number of points: {}\n".format(len(all_points)))
+
         for pid, X, color in all_points:
             R, G, B = color
             f.write(f"{pid} {X[0]} {X[1]} {X[2]} {int(R)} {int(G)} {int(B)} 1.0 \n")
 
     with open(output_image_file, 'w') as f:
+        f.write("# Image list with two lines of data per image:\n")
+        f.write("#   IMAGE_ID, QW, QX, QY, QZ, TX, TY, TZ, CAMERA_ID, IMAGE_NAME\n")
+        f.write("#   POINTS2D[] as (X, Y, POINT3D_ID)\n")
+
         i = 0
         while i < len(image_lines):
             line = image_lines[i]

@@ -14,7 +14,13 @@ See [installation_guide.md](installation_guide.md) for detailed installation ins
 
 ## Test
 
+### Use COLMAP Dataset
+
 See [test_colmap.md](test_colmap.md)
+
+### Use Our Hand Data
+
+See [test_hand_data.md](test_hand_data.md)
 
 ## Evaluation
 

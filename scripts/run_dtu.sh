@@ -12,4 +12,3 @@ python train_dtu.py --dataset DTU -s $dataset --model_path $workspace -r 4 --eva
             --shape_pena 0.005 --opa_pena 0.001 --scale_pena 0.005\
 
 python render.py -s $dataset --model_path $workspace -r 4
-python spiral.py -s $dataset --model_path $workspace -r 4
